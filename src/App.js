@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import AuthBanner from './AuthBanner';
 import QuoteEditor from './QuoteEditor';
 import LayoutEditor from './LayoutEditor';
 import QuoteContainer from './QuoteContainer';
@@ -219,6 +220,7 @@ class App extends React.Component {
 
         return (
             <div>
+                <AuthBanner />
                 <style dangerouslySetInnerHTML={{__html: this.state.hash.extraCss}} />
                 {this.state.showOverlay ? <div onClick={this.handleOverlayToggle.bind(this)} style={squareOverlayStyle}/> : null}
                 <QuoteEditor

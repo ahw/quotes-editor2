@@ -3,6 +3,13 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
 
+function renderApp() {
+    ReactDOM.render(
+        <App />,
+        document.getElementById('root')
+    );
+}
+
 if (typeof window !== 'undefined') {
     const firebase = window.firebase;
     // Initialize Firebase
@@ -20,6 +27,7 @@ if (typeof window !== 'undefined') {
     var uiConfig = {
         callbacks: {
             signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+                setTimeout(renderApp, 0);
                 console.log(`%csign in succcess`, 'background:green; color:white; padding: 4px', authResult, redirectUrl);
                 return false; // Return false so that we don't have to redirect
             },
@@ -46,11 +54,6 @@ if (typeof window !== 'undefined') {
     var ui = new window.firebaseui.auth.AuthUI(firebase.auth());
     // The start method will wait until the DOM is loaded.
     ui.start('#root', uiConfig);
-
-    // ReactDOM.render(
-    //     <App />,
-    //     document.getElementById('root')
-    // );
 }
 
 // That's right, no server-side rendering whatsoever.
