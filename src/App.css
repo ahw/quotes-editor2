@@ -185,3 +185,64 @@
     height: 100vw;
     /* border: 1px solid red; */
 }
+
+/* newer */
+.auth-banner {
+    padding: 2px;
+    background: white;
+    font-size: 10px;
+    text-align: right;
+}
+
+/*
+.CssEditor input.css-selector {
+    font-family: Monospace;
+    font-size: 14px;
+    padding: 2px;
+    outline: none;
+    transition-property: background;
+    transition-duration: 300ms;
+    border: 1px solid black;
+}
+
+.CssEditor input.css-selector:focus {
+    background: yellow;
+    outline: none;
+}
+*/
+
+.EditableInput {
+    font-family: Monospace;
+    font-size: 14px;
+    padding: 2px;
+    outline: none;
+    transition-property: background, border;
+    transition-duration: 500ms;
+    border: 1px solid transparent;
+}
+
+.EditableInput:focus {
+    background: #E9E9E9;
+    font-weight: bold;
+    outline: none;
+    border: 1px solid black;
+}
+
+.CssEditor .css-selector {
+    color: #FF3CA7;
+    font-size: 24px;
+}
+
+.CssEditor .add-declaration-to-selector {
+    background: blue;
+    color: white;
+    padding: 4px;
+    display: inline-block;
+}
+
+.CssEditor .css-declaration-container input {
+    font-size: 20px;
+    width: 50%;
+    margin-top: 6px;
+    color: gray;
+}

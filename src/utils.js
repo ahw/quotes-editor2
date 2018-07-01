@@ -15,7 +15,7 @@ export function parseLine(line) {
         console.warn(`Line does not match any of the patterns "${line}"`);
     }
 
-    let [_, quote, source] = matches;
+    let [, quote, source] = matches;
     return { quote, source };
 }
 
