@@ -194,55 +194,40 @@
     text-align: right;
 }
 
-/*
-.CssEditor input.css-selector {
+.TextEditor {
+    line-height: 0;
+}
+
+.TextEditor textarea {
     font-family: Monospace;
     font-size: 14px;
     padding: 2px;
     outline: none;
-    transition-property: background;
     transition-duration: 300ms;
-    border: 1px solid black;
+    border: none;
+    width: 100%;
+    padding: 0.50em;
+    background: #F6E14A;
+    margin: 0;
+}
+
+.TextEditor textarea:focus {
+    height: 50vh;
 }
 
 .CssEditor input.css-selector:focus {
     background: yellow;
     outline: none;
 }
-*/
 
-.EditableInput {
-    font-family: Monospace;
-    font-size: 14px;
-    padding: 2px;
-    outline: none;
-    transition-property: background, border;
-    transition-duration: 500ms;
-    border: 1px solid transparent;
-}
-
-.EditableInput:focus {
+.StoryEditor textarea {
     background: #E9E9E9;
-    font-weight: bold;
-    outline: none;
-    border: 1px solid black;
+    font-family: serif;
 }
 
-.CssEditor .css-selector {
-    color: #FF3CA7;
+.StoryIdEditor {
+    display: block;
+    font-family: sans-serif;
     font-size: 24px;
-}
-
-.CssEditor .add-declaration-to-selector {
-    background: blue;
-    color: white;
-    padding: 4px;
-    display: inline-block;
-}
-
-.CssEditor .css-declaration-container input {
-    font-size: 20px;
-    width: 50%;
-    margin-top: 6px;
-    color: gray;
+    padding: 5px;
 }

@@ -1,10 +1,7 @@
 export const UPDATE_USER = 'UPDATE_USER';
-export const ADD_CSS_SELECTOR = 'ADD_CSS_SELECTOR';
-export const UPDATE_CSS_SELECTOR = 'UDPATE_CSS_SELECTOR';
-export const REMOVE_CSS_SELECTOR = 'REMOVE_CSS_SELECTOR';
-export const ADD_CSS_DECLARATION = 'ADD_CSS_DECLARATION';
-export const REMOVE_CSS_DECLARATION = 'REMOVE_CSS_DECLARATION';
-export const UPDATE_CSS_DECLARATION = 'UPDATE_CSS_DECLARATION';
+export const UPDATE_CSS_TEXT = 'UPDATE_CSS_TEXT';
+export const UPDATE_STORY_TEXT = 'UPDATE_STORY_TEXT';
+export const UPDATE_STORY_ID = 'UPDATE_STORY_ID';
 
 export function updateUser(user) {
     return {
@@ -13,55 +10,31 @@ export function updateUser(user) {
     };
 }
 
-export function addCssSelector(selector) {
+function writeUserData(storyId, cssText, storyText) {
+    window.firebase.database().ref('stories/' + storyId).set({
+        storyId,
+        cssText,
+        storyText,
+    });
+}
+
+export function updateCssText(cssText) {
     return {
-        type: ADD_CSS_SELECTOR,
-        selector,
+        type: UPDATE_CSS_TEXT,
+        cssText,
     };
 }
 
-export function updateCssSelector(selector, index) {
+export function updateStoryId(storyId) {
     return {
-        type: UPDATE_CSS_SELECTOR,
-        selector,
-        index,
+        type: UPDATE_STORY_ID,
+        storyId,
     };
 }
 
-export function removeCssSelector(selector, index) {
+export function updateStoryText(storyText) {
     return {
-        type: REMOVE_CSS_SELECTOR,
-        selector,
-        index,
-    };
-}
-
-export function addCssDeclaration(selector, index, property, value) {
-    return {
-        type: ADD_CSS_DECLARATION,
-        selector,
-        index,
-        property,
-        value,
-    };
-}
-
-export function updateCssDeclaration(selector, index, property, value, oldProperty) {
-    return {
-        type: UPDATE_CSS_DECLARATION,
-        selector,
-        index,
-        property,
-        oldProperty,
-        value,
-    };
-}
-
-export function removeCssDeclaration(selector, index, property) {
-    return {
-        type: REMOVE_CSS_DECLARATION,
-        selector,
-        index,
-        property,
+        type: UPDATE_STORY_TEXT,
+        storyText: storyText,
     };
 }

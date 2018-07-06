@@ -4,6 +4,9 @@ import {
 } from '../actions';
 import AuthBanner from '../containers/AuthBanner';
 import CssEditor from '../containers/CssEditor';
+import StoryEditor from '../containers/StoryEditor';
+import StoryIdEditor from '../containers/StoryIdEditor';
+import StoryCanvas from '../containers/StoryCanvas';
 import '../App.css';
 import firebaseConfig from '../configs/firebase';
 
@@ -87,7 +90,10 @@ class App extends Component {
             return (
                 <React.Fragment>
                     <AuthBanner />
+                    <StoryIdEditor />
+                    <StoryEditor />
                     <CssEditor />
+                    <StoryCanvas />
                 </React.Fragment>
             );
         } else {
