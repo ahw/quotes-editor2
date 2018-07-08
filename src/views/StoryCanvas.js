@@ -90,8 +90,8 @@ function getQuotesFromText(rawText) {
 }
 
 function getCleanedStoryText(rawText) {
-    return getQuotesFromText(rawText).map(({ quote, source }) => (
-        <div className="quoteAndSource">
+    return getQuotesFromText(rawText).map(({ quote, source }, i) => (
+        <div className="quoteAndSource" key={quote + source + i}>
             <div className="quote">{quote}</div>
             <div className="source">{source}</div>
         </div>

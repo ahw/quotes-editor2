@@ -6,7 +6,7 @@ import {
 
 function mapStateToProps(state, ownProps) {
     return {
-        cssText: state.cssText,
+        cssText: state.cssText === null ? "" : state.cssText,
     };
 }
 

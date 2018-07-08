@@ -2,6 +2,8 @@ export const UPDATE_USER = 'UPDATE_USER';
 export const UPDATE_CSS_TEXT = 'UPDATE_CSS_TEXT';
 export const UPDATE_STORY_TEXT = 'UPDATE_STORY_TEXT';
 export const UPDATE_STORY_ID = 'UPDATE_STORY_ID';
+export const UPDATE_ENTIRE_STORY = 'UPDATE_ENTIRE_STORY';
+export const UPDATE_MODE = 'UPDATE_MODE';
 
 export function updateUser(user) {
     return {
@@ -10,12 +12,11 @@ export function updateUser(user) {
     };
 }
 
-function writeUserData(storyId, cssText, storyText) {
-    window.firebase.database().ref('stories/' + storyId).set({
-        storyId,
-        cssText,
-        storyText,
-    });
+export function updateMode(mode) {
+    return {
+        type: UPDATE_MODE,
+        mode,
+    };
 }
 
 export function updateCssText(cssText) {
@@ -29,6 +30,7 @@ export function updateStoryId(storyId) {
     return {
         type: UPDATE_STORY_ID,
         storyId,
+        storyUserId: storyId,
     };
 }
 

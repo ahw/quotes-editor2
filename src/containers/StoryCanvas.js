@@ -3,7 +3,7 @@ import StoryCanvas from '../views/StoryCanvas';
 
 function mapStateToProps(state, ownProps) {
     return {
-        storyText: state.storyText,
+        storyText: state.storyText === null ? "" : state.storyText,
     };
 }
 

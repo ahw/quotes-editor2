@@ -7,22 +7,10 @@ import CssEditor from '../containers/CssEditor';
 import StoryEditor from '../containers/StoryEditor';
 import StoryIdEditor from '../containers/StoryIdEditor';
 import StoryCanvas from '../containers/StoryCanvas';
+import _get from 'lodash/get';
 import '../App.css';
 import firebaseConfig from '../configs/firebase';
-
-const NewView = () => (
-    <div>
-        <h1>New</h1>
-        <textarea />
-    </div>
-);
-
-const EditView = (props) => (
-    <div>
-        <h1>Edit</h1>
-        <textarea value={props.text} />
-    </div>
-);
+import { getUrl } from '../utils/url';
 
 class App extends Component {
     constructor(props) {
@@ -82,28 +70,52 @@ class App extends Component {
             }
             this.props.updateUser(user);
         });
+
+        const matches = window.location.search.match(/mode=(\w+)/);
+        let mode = matches && matches[1];
+        if (mode !== null) {
+            if (window.history && window.history.pushState) {
+                window.history.pushState({
+                    mode,
+                }, null, getUrl({ mode }));
+            }
+
+            this.props.updateMode(mode);
+        }
     }
 
 
     render() {
-        if (this.props.user) {
+        const newStory = this.props.newStory;
+        const isEditMode = this.props.mode === 'edit';
+        const userHasWritePermissions = _get(this.props, 'user.uid') === this.props.storyUserId;
+        const hasGottenDataFromDatabase = this.props.receivedDataOnce;
+        const hasUser = this.props.user !== null;
+        if (hasUser && newStory
+            || isEditMode && userHasWritePermissions && hasGottenDataFromDatabase) {
             return (
                 <React.Fragment>
                     <AuthBanner />
-                    <StoryIdEditor />
+                    <StoryIdEditor
+                        setupFirebaseStoreBindings={this.props.setupFirebaseStoreBindings}
+                    />
                     <StoryEditor />
                     <CssEditor />
                     <StoryCanvas />
                 </React.Fragment>
             );
-        } else {
+        } else if (hasUser) {
             return (
-                <div style={{ height: '100vh', width: '100vw' }}>
-                    <div style={{ height: '20vw', width: '20vw', transform: 'translate(-50%, -50%)', position: 'absolute', top: '50%', left: '50%', textAlign: 'center' }}>
-                        Loading
-                    </div>
-                </div>
-            )
+                <React.Fragment>
+                    <AuthBanner />
+                    <StoryIdEditor
+                        setupFirebaseStoreBindings={this.props.setupFirebaseStoreBindings}
+                    />
+                    <StoryCanvas />
+                </React.Fragment>
+            );
+        } else {
+            return (<div>loading</div>);
         }
     }
 }

@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
-
-function getUrl(storyId) {
-    return `?id=${storyId}`;
-}
+import { getUrl } from '../utils/url';
 
 export default class StoryIdEditor extends Component {
-    constructor(props) {
-        super(props);
-    }
     
     componentDidMount() {
         const matches = window.location.search.match(/id=(\w+)/);
@@ -19,7 +13,7 @@ export default class StoryIdEditor extends Component {
             if (window.history && window.history.pushState) {
                 window.history.pushState({
                     storyId,
-                }, null, getUrl(storyId));
+                }, null, getUrl({ id: storyId }));
             }
         }
 
@@ -27,7 +21,7 @@ export default class StoryIdEditor extends Component {
     }
 
     render() {
-        const href = getUrl(this.props.storyId);
+        const href = getUrl({ id: this.props.storyId });
         return (
             <a className="StoryIdEditor" href={href}>{href}</a>
         );

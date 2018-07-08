@@ -6,10 +6,24 @@ import {
 const initialState = {
     user: null,
     storyId: null,
-    storyText: "",
-    cssText: "",
-    serverHasLatest: null,
+    storyText: null,
+    storyUserId: null,
+    cssText: null,
+    mode: null,
+    receivedDataOnce: false,
 };
+
+function storyUserId(state = initialState.storyUserId, action) {
+    return action.storyUserId || state;
+}
+
+function mode(state = initialState.mode, action) {
+    return action.mode || state;
+}
+
+function receivedDataOnce(state = initialState.receivedDataOnce, action) {
+    return action.receivedDataOnce || state;
+}
 
 function user(state = initialState.user, action) {
     // If a user was provided, return it; otherwise just return the default null
@@ -33,4 +47,7 @@ export default combineReducers({
     storyId,
     storyText,
     cssText,
+    mode,
+    receivedDataOnce,
+    storyUserId,
 });

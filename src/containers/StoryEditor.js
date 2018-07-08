@@ -5,13 +5,13 @@ import StoryEditor from '../views/StoryEditor';
 
 function mapStateToProps(state, ownProps) {
     return {
-        quotes: state.quoteText,
+        storyText: state.storyText === null ? "" : state.storyText,
     };
 }
 
 function mapDispatchToProps(dispatch, ownProps) {
     return {
-        updateStoryText: quoteText => dispatch(updateStoryText(quoteText))
+        updateStoryText: storyText => dispatch(updateStoryText(storyText))
     }
 }
 
