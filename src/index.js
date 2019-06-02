@@ -6,6 +6,10 @@ import { Provider } from 'react-redux';
 import App from './containers/App';
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
+import {
+    getMode,
+    getStoryId,
+} from './utils/url';
 import './index.css';
 import linkStoreWithPath from './firebase-redux/linkStoreWithPath';
 import {
@@ -71,19 +75,22 @@ function setupFirebaseStoreBindings(firebase, store, storyId) {
 
 
 const loggerMiddleware = createLogger();
-const store = createStore(appReducer, applyMiddleware(
+const initialState = {
+    storyId: getStoryId(),
+    mode: getMode(),
+};
+
+const store = createStore(appReducer, initialState, applyMiddleware(
     thunkMiddleware,
     loggerMiddleware
 ));
 
 
 function renderApp(firebase) {
-    const newStory = !/id=\w+/.test(window.location.search);
     window.store = store;
     ReactDOM.render(
         <Provider store={store}>
             <App
-                newStory={newStory}
                 firebase={firebase}
                 setupFirebaseStoreBindings={setupFirebaseStoreBindings.bind(this, firebase, store)}
             />
