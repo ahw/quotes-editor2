@@ -1,9 +1,13 @@
 import { connect } from 'react-redux';
-import { updateStoryId } from '../actions';
+import {
+    updateStoryId,
+    updateStoryUserId,
+} from '../actions';
 import StoryIdEditor from '../views/StoryIdEditor';
 
 function mapStateToProps(state, ownProps) {
     return {
+        user: state.user,
         storyId: state.storyId,
     };
 }
@@ -12,9 +16,10 @@ function mapDispatchToProps(dispatch, ownProps) {
     return {
         updateStoryId: storyId => {
             // TODO: pass unlink binding function
-            ownProps.setupFirebaseStoreBindings(storyId);
+            // ownProps.setupFirebaseStoreBindings(storyId);
             return dispatch(updateStoryId(storyId));
-        }
+        },
+        updateStoryUserId: storyUserId => dispatch(updateStoryUserId(storyUserId)),
     };
 }
 

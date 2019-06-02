@@ -74,41 +74,46 @@ class App extends Component {
 
 
     render() {
-        return (
-            <div
-                id="app-container"
-                className={this.props.viewName}
-            >
-                {`${this.props.viewName}`}
-            </div>
-        );
+        const { user, storyId, storyUserId, mode } = this.props;
+        const userHasWritePermissions = _get(user, 'uid') === storyUserId;
+        const hasGottenDataFromDatabase = true;
 
-        // if (hasUser && newStory
-        //     || isEditMode && userHasWritePermissions && hasGottenDataFromDatabase) {
-        //     return (
-        //         <React.Fragment>
-        //             <AuthBanner />
-        //             <StoryIdEditor
-        //                 setupFirebaseStoreBindings={this.props.setupFirebaseStoreBindings}
-        //             />
-        //             <StoryEditor />
-        //             <CssEditor />
-        //             <StoryCanvas />
-        //         </React.Fragment>
-        //     );
-        // } else if (hasUser) {
-        //     return (
-        //         <React.Fragment>
-        //             <AuthBanner />
-        //             <StoryIdEditor
-        //                 setupFirebaseStoreBindings={this.props.setupFirebaseStoreBindings}
-        //             />
-        //             <StoryCanvas />
-        //         </React.Fragment>
-        //     );
-        // } else {
-        //     return (<div>loading</div>);
-        // }
+        const isEditMode = mode === 'edit';
+        const creatingNewStory = user && storyId === null;
+        const userHasOwnershipOverStory = userHasWritePermissions;
+        const editingExistingStory = isEditMode && userHasWritePermissions && hasGottenDataFromDatabase;
+
+        if (creatingNewStory || editingExistingStory) {
+            return (
+                <React.Fragment>
+                    <AuthBanner />
+                    <StoryIdEditor
+                        setupFirebaseStoreBindings={this.props.setupFirebaseStoreBindings}
+                    />
+                    <StoryEditor />
+                    <CssEditor />
+                    <StoryCanvas />
+                </React.Fragment>
+            );
+        } else if (user && !userHasOwnershipOverStory) {
+            return (
+                <React.Fragment>
+                    <AuthBanner />
+                    <StoryIdEditor
+                        setupFirebaseStoreBindings={this.props.setupFirebaseStoreBindings}
+                    />
+                    <StoryCanvas />
+                </React.Fragment>
+            );
+        } else {
+            return (
+                <div id="app-container" className={this.props.viewName}>
+                    <AuthBanner />
+                    {`${this.props.viewName}`}
+                </div>
+            );
+        }
+
     }
 }
 

@@ -6,7 +6,7 @@ export default function AuthBanner({ user }) {
     }
 
     return (
-        <div className="auth-banner">
+        <div className="AuthBanner">
             {user.displayName} | {user.email}
         </div>
     );
