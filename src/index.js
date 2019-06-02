@@ -16,9 +16,8 @@ import {
     UPDATE_ENTIRE_STORY
 } from './actions';
 
-function setupFirebaseStoreBindings(firebase, store, storyId) {
-    // The database path you want to bind with
-    const storiesPath = '/stories/' + storyId;
+
+function getLinkFunction(firebase, store) {
 
     // Action to dispatch when the value in the database changes
     const storyActionCreator = ({ storyText, cssText, storyUserId, error }) => {
@@ -53,24 +52,39 @@ function setupFirebaseStoreBindings(firebase, store, storyId) {
             stuffToWrite.cssText = state.cssText;
         }
         
-        console.log('Writing stuff to the database', stuffToWrite);
+        console.log(`Writing to database stories/%c${state.storyId}`, 'font-weight:bold', stuffToWrite);
         return stuffToWrite;
     }
 
     // Create a function to bind '/stories' in the database
     // with 'state.{storyId,storyText,cssText}' in the Redux store
-    // 
-    const linkStory = linkStoreWithPath({
-        path: storiesPath,
-        actionCreator: storyActionCreator,
-        selector: storySelector,
-        dbMethod: 'update',
-        debug: true,
-    });
+    let lastLinkedStoryId = false;
+    return function linkToFirebase(storyId) {
+        console.log(`linking to firebase`);
+        if (!storyId) {
+            console.warn(`storyId ${storyId} is falsey; cannot link to Firebase until a valid story id is provided`);
+        }
 
-    // Invoke anywhere in the code to set up the binding
-    const unlink = linkStory(firebase.database(), store);
-    return unlink;
+        if (storyId === lastLinkedStoryId) {
+            console.warn(`storyId ${storyId} has already been linked to Firebase. Doing nothing`);
+        }
+
+        // The database path you want to bind with
+        lastLinkedStoryId = storyId;
+        const storiesPath = '/stories/' + storyId;
+        console.log(`linking state.{storyId,storyText,cssText} to firebase`);
+        const linkStory = linkStoreWithPath({
+            path: storiesPath,
+            actionCreator: storyActionCreator,
+            selector: storySelector,
+            dbMethod: 'update',
+            debug: true,
+        });
+
+        // Invoke anywhere in the code to set up the binding
+        const unlinkFromFirebase = linkStory(firebase.database(), store);
+        return unlinkFromFirebase;
+    }
 }
 
 
@@ -92,7 +106,7 @@ function renderApp(firebase) {
         <Provider store={store}>
             <App
                 firebase={firebase}
-                setupFirebaseStoreBindings={setupFirebaseStoreBindings.bind(this, firebase, store)}
+                linkToFirebase={getLinkFunction(firebase, store)}
             />
         </Provider>,
         document.getElementById('root')

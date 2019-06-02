@@ -17,11 +17,6 @@ const defaultState = {
     mode: null,
     receivedDataOnce: false,
 };
-
-function storyUserId(state = defaultState.storyUserId, action) {
-    return action.storyUserId || state;
-}
-
 function mode(state = defaultState.mode, action) {
     return action.mode || state;
 }
@@ -44,6 +39,11 @@ function storyId(state = defaultState.storyId, action) {
 
     return state;
 }
+
+function storyUserId(state = defaultState.storyUserId, action) {
+    return action.storyUserId || state;
+}
+
 
 function storyText(state = defaultState.storyText, action) {
     return action.storyText || state;

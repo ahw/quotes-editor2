@@ -14,7 +14,7 @@ export function viewName(state) {
         return LOGIN;
     } if (storyId === null) {
         return NEW_STORY;
-    } else if (mode === null) {
+    } else if (mode === 'view' || mode === null) {
         return VIEW_ONLY;
     } else if (mode === 'edit' && storyUserId === uid) {
         return EDIT;

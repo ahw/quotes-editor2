@@ -18,7 +18,13 @@ export default class StoryIdEditor extends Component {
             storyId = Math.random().toString(31).substr(2, 8);
         }
 
+        this.updateStoryId({ storyId, storyUserId: this.props.user.uid });
+        this.props.linkToFirebase(storyId);
+    }
+
+    updateStoryId({ storyId, storyUserId }) {
         this.props.updateStoryId(storyId);
+        this.props.updateStoryUserId(storyUserId);
     }
 
     render() {
@@ -28,7 +34,7 @@ export default class StoryIdEditor extends Component {
                 <div className="StoryIdEditor">
                     <input
                         value={this.props.storyId}
-                        onChange={e => this.props.updateStoryId(e.target.value)}
+                        onChange={e => this.updateStoryId({ storyId: e.target.value, storyUserId: this.props.user.uid })}
                     />
                     <a href={href}>{href}</a>
                 </div>

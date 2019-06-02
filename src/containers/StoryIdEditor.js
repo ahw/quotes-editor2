@@ -16,7 +16,6 @@ function mapDispatchToProps(dispatch, ownProps) {
     return {
         updateStoryId: storyId => {
             // TODO: pass unlink binding function
-            // ownProps.setupFirebaseStoreBindings(storyId);
             return dispatch(updateStoryId(storyId));
         },
         updateStoryUserId: storyUserId => dispatch(updateStoryUserId(storyUserId)),

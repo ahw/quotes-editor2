@@ -88,7 +88,7 @@ class App extends Component {
                 <React.Fragment>
                     <AuthBanner />
                     <StoryIdEditor
-                        setupFirebaseStoreBindings={this.props.setupFirebaseStoreBindings}
+                        linkToFirebase={this.props.linkToFirebase}
                     />
                     <StoryEditor />
                     <CssEditor />
@@ -100,7 +100,7 @@ class App extends Component {
                 <React.Fragment>
                     <AuthBanner />
                     <StoryIdEditor
-                        setupFirebaseStoreBindings={this.props.setupFirebaseStoreBindings}
+                        linkToFirebase={this.props.linkToFirebase}
                     />
                     <StoryCanvas />
                 </React.Fragment>
