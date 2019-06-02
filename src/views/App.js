@@ -18,7 +18,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        const firebase = window.firebase;
+        const firebase = this.props.firebase;
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
 
@@ -66,7 +66,7 @@ class App extends Component {
                 // Initialize the FirebaseUI Widget using Firebase.
                 var ui = new window.firebaseui.auth.AuthUI(firebase.auth());
                 // The start method will wait until the DOM is loaded.
-                ui.start('#root', uiConfig);
+                ui.start('#firebaseui-auth-container', uiConfig);
             }
             this.props.updateUser(user);
         });
